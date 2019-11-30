@@ -7,6 +7,13 @@ const getUser = async (username) => {
   return User.getByUsername(username)
 }
 
+const createOne = async (userFields) => {
+  const { User } = await db(config.db)
+  const user = await User.createOne(userFields)
+  return user
+}
+
 module.exports = {
-  getUser
+  getUser,
+  createOne
 }

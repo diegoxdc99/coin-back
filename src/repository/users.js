@@ -7,12 +7,12 @@ module.exports = function setupAgent (UserModel) {
     })
   }
 
-  const create = (userParams) => {
+  const createOne = (userParams) => {
     return UserModel.create(userParams)
   }
 
   return {
     getByUsername,
-    create
+    createOne
   }
 }
