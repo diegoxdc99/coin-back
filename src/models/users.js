@@ -5,11 +5,11 @@ const setupDatabase = require('../repository/db')
 const createSchema = sequelize => {
   return sequelize.define('users', {
     name: {
-      type: Sequelize.TEXT,
+      type: Sequelize.STRING,
       allowNull: false
     },
     lastname: {
-      type: Sequelize.TEXT,
+      type: Sequelize.STRING,
       allowNull: false
     },
     username: {

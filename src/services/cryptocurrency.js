@@ -1,6 +1,7 @@
 const axios = require('axios')
-// instanceof
-const { bravenewcoin } = require('../config')
+
+const db = require('../repository')
+const { bravenewcoin, db: dbConfig } = require('../config')
 const { ErrorHandler } = require('../helpers/error')
 
 const url = 'https://bravenewcoin-v1.p.rapidapi.com/ticker'
@@ -30,6 +31,17 @@ const createResponseError = (response) => {
   return new ErrorHandler(response.status, apiResponseError[response.status] || apiResponseError.default)
 }
 
+const createOne = async (userId, name) => {
+  try {
+    const { Cryptocurrencies } = await db(dbConfig)
+    const cryptocurrency = await Cryptocurrencies.createOne(userId, { name })
+    return cryptocurrency
+  } catch (error) {
+    return null
+  }
+}
+
 module.exports = {
-  isValid
+  isValid,
+  createOne
 }

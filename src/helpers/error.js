@@ -19,7 +19,7 @@ const handleError = (err, res) => {
 
 const mapErrorHandleResponse = (error) => {
   return {
-    statusCode: error.statuscode
+    statusCode: error.statusCode
   }
 }
 
@@ -38,7 +38,8 @@ const mapDefaultErrorResponse = () => {
 const mappingInstanceErrors = {
   ErrorHandler: mapErrorHandleResponse,
   UnauthorizedError: mapUnauthorizedErrorResponse,
-  DefaultError: mapDefaultErrorResponse
+  DefaultError: mapDefaultErrorResponse,
+  DatabaseError: mapDefaultErrorResponse
 }
 
 module.exports = {
