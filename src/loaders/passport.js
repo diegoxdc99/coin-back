@@ -2,7 +2,7 @@ const passport = require('passport')
 const BasicStrategy = require('passport-http').BasicStrategy
 
 const userService = require('../services/user')
-const { ErrorHandler } = require('../helpers/error');
+const { ErrorHandler } = require('../helpers/error')
 
 passport.use(new BasicStrategy(async (username, password, done) => {
   const user = await userService.getUser(username)

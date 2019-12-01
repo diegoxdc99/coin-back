@@ -7,12 +7,38 @@ class ErrorHandler extends Error {
 }
 
 const handleError = (err, res) => {
-  const { statusCode, message } = err
+  const message = err.message
+  const { statusCode } = mappingInstanceErrors[err.constructor.name](err) || mappingInstanceErrors.default(err)
+
   res.status(statusCode).json({
     status: 'error',
     statusCode,
     message
   })
+}
+
+const mapErrorHandleResponse = (error) => {
+  return {
+    statusCode: error.statuscode
+  }
+}
+
+const mapUnauthorizedErrorResponse = (error) => {
+  return {
+    statusCode: error.status
+  }
+}
+
+const mapDefaultErrorResponse = () => {
+  return {
+    statusCode: 500
+  }
+}
+
+const mappingInstanceErrors = {
+  ErrorHandler: mapErrorHandleResponse,
+  UnauthorizedError: mapUnauthorizedErrorResponse,
+  DefaultError: mapDefaultErrorResponse
 }
 
 module.exports = {

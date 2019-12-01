@@ -11,6 +11,12 @@ const createUser = async (req, res, next) => {
   }
 }
 
+const generateToken = (req, res, next) => {
+  const token = userService.generateToken(req.user)
+  res.json({ token })
+}
+
 module.exports = {
-  createUser
+  createUser,
+  generateToken
 }

@@ -1,6 +1,7 @@
 
 const db = require('../repository')
 const config = require('../config')
+const jwt = require('../helpers/jwt')
 
 const getUser = async (username) => {
   const { User } = await db(config.db)
@@ -13,7 +14,12 @@ const createOne = async (userFields) => {
   return user
 }
 
+const generateToken = (user) => {
+  return jwt.sign({ username: user.username, id: user.id }, config.auth.secret)
+}
+
 module.exports = {
   getUser,
-  createOne
+  createOne,
+  generateToken
 }

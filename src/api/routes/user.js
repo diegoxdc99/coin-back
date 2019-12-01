@@ -11,5 +11,5 @@ module.exports = (app) => {
   app.use('/users', route) // Creating a user route
 
   route.post('/', validator.body(userSchema), userMiddleware.existUser, users.createUser)
-  route.post('/login', passport.authenticate('basic', { session: false }))
+  route.post('/login', passport.authenticate('basic', { session: false }), users.generateToken)
 }

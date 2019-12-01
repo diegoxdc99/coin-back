@@ -18,5 +18,11 @@ module.exports = {
     database: process.env.DATABASE,
     host: process.env.HOST,
     dialect: 'mysql'
+  },
+  auth: {
+    secret: process.env.SECRET
+  },
+  bravenewcoin: {
+    key: process.env.BRAVENEWCOIN_KEY
   }
 }
