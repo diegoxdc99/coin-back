@@ -5,6 +5,7 @@ const { bravenewcoin, db: dbConfig } = require('../config')
 const { ErrorHandler } = require('../helpers/error')
 
 const url = 'https://bravenewcoin-v1.p.rapidapi.com/ticker'
+const descendingOrder = 'DES'
 
 const config = {
   headers: {
@@ -63,12 +64,10 @@ const createResponse = (responsesApi, userCurrency) => {
   return response
 }
 
-module.exports = {
-  isValid,
-  createOne,
-  findAllByUser,
-  getDataCryptocurrency
+const orderListbyPrice = (list, order = descendingOrder) => {
+  return list.sort((a, b) => order === descendingOrder ? b.price - a.price : a.price - b.price)
 }
+
 const createResponseArray = (response, userCurrency) => {
   return (responseApi) => {
     if (responseApi.data.success) {
@@ -79,4 +78,12 @@ const createResponseArray = (response, userCurrency) => {
       })
     }
   }
+}
+
+module.exports = {
+  isValid,
+  createOne,
+  findAllByUser,
+  getDataCryptocurrency,
+  orderListbyPrice
 }

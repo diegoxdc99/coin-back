@@ -17,7 +17,15 @@ const findAllByUser = async (req, res, next) => {
   res.send(response)
 }
 
+const topByUser = async (req, res, next) => {
+  const cryptocurrencies = await cryptoService.findAllByUser(req.user.id)
+  let response = await cryptoService.getDataCryptocurrency(cryptocurrencies, req.userRegistered.currency)
+  response = cryptoService.orderListbyPrice(response).slice(0, 3)
+  res.send(response)
+}
+
 module.exports = {
   createUser,
-  findAllByUser
+  findAllByUser,
+  topByUser
 }
