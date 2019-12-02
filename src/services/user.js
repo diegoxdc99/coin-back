@@ -8,6 +8,11 @@ const getUser = async (username) => {
   return User.getByUsername(username)
 }
 
+const getByPk = async (id) => {
+  const { User } = await db(config.db)
+  return User.getByPk(id)
+}
+
 const createOne = async (userFields) => {
   const { User } = await db(config.db)
   const user = await User.createOne(userFields)
@@ -21,5 +26,6 @@ const generateToken = (user) => {
 module.exports = {
   getUser,
   createOne,
-  generateToken
+  generateToken,
+  getByPk
 }

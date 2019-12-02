@@ -11,6 +11,13 @@ const createUser = async (req, res, next) => {
   }
 }
 
+const findAllByUser = async (req, res, next) => {
+  const cryptocurrencies = await cryptoService.findAllByUser(req.user.id)
+  const response = await cryptoService.getDataCryptocurrency(cryptocurrencies, req.userRegistered.currency)
+  res.send(response)
+}
+
 module.exports = {
-  createUser
+  createUser,
+  findAllByUser
 }

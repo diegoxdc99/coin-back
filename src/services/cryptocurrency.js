@@ -41,7 +41,42 @@ const createOne = async (userId, name) => {
   }
 }
 
+const findAllByUser = async (userId) => {
+  const { Cryptocurrencies } = await db(dbConfig)
+  const cryptocurrencies = await Cryptocurrencies.findAllByUser(userId)
+  return cryptocurrencies
+}
+
+const getDataCryptocurrency = async (cryptos, userCurrency) => {
+  const promisesApi = []
+  cryptos.forEach(crypto => {
+    promisesApi.push(axios.get(`${url}?coin=${crypto.name}&show=${userCurrency}`, config))
+  })
+  const responsesApi = await Promise.all(promisesApi)
+  const response = createResponse(responsesApi, userCurrency)
+  return response
+}
+
+const createResponse = (responsesApi, userCurrency) => {
+  const response = []
+  responsesApi.forEach(createResponseArray(response, userCurrency))
+  return response
+}
+
 module.exports = {
   isValid,
-  createOne
+  createOne,
+  findAllByUser,
+  getDataCryptocurrency
+}
+const createResponseArray = (response, userCurrency) => {
+  return (responseApi) => {
+    if (responseApi.data.success) {
+      response.push({
+        name: userCurrency,
+        price: responseApi.data.last_price,
+        source: responseApi.data.source
+      })
+    }
+  }
 }

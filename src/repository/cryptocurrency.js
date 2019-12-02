@@ -7,7 +7,16 @@ module.exports = function setupCryptocurrencies (CryptocurrenciesModel) {
       })
   }
 
+  const findAllByUser = (userId) => {
+    return CryptocurrenciesModel.findAll({
+      where: {
+        userId
+      }
+    })
+  }
+
   return {
-    createOne
+    createOne,
+    findAllByUser
   }
 }

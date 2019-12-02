@@ -11,6 +11,19 @@ const existUser = async (req, res, next) => {
   }
 }
 
+const getOne = async (req, res, next) => {
+  try {
+    const user = await userService.getByPk(req.user.id)
+    if (!user) return next(new ErrorHandler(500, 'user not found'))
+
+    req.userRegistered = user
+    next()
+  } catch (error) {
+    next(error)
+  }
+}
+
 module.exports = {
-  existUser
+  existUser,
+  getOne
 }
