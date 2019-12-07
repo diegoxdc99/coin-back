@@ -113,7 +113,7 @@ const createResponseArray = (response, userCurrency) => {
   return (responseApi) => {
     if (responseApi.data.success) {
       response.push({
-        name: userCurrency,
+        name: responseApi.data.coin_name,
         price: responseApi.data.last_price,
         source: responseApi.data.source
       })

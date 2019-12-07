@@ -36,3 +36,24 @@ Para esto ejecutamos el siguiente comando
 ```
 npm run dev
 ```
+
+# Rutas
+- POST /users: crea un usuario
+    ```JSON
+    {
+        "name": "AAA",
+        "lastname": "AAA",
+        "username": "AAA",
+        "password": "AAAAAAAA",
+        "currency": "AAA"
+    }
+  ```
+- POST /users/login: Obtiene el token, la autenticación se hace por el metodo basic authentication
+- /cryptos: Crea una criptomoneda en la base de datos
+    ```JSON
+    {
+        "name": "AUR"
+    }
+    ```
+- GET /cryptos/me: Obtiene las criptomonedas de ese usuario, se le debe de mandar el token como un bearer token
+- GET /cryptos/top: Obtiene el top 3 de criptomonedas de ese usuario, se le debe de mandar el token como un bearer token
