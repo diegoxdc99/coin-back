@@ -8,7 +8,7 @@ class ErrorHandler extends Error {
 
 const handleError = (err, res) => {
   const message = err.message
-  const { statusCode } = mappingInstanceErrors[err.constructor.name](err) || mappingInstanceErrors.default(err)
+  const { statusCode } = (mappingInstanceErrors[err.constructor.name] && mappingInstanceErrors[err.constructor.name](err)) || mappingInstanceErrors.DefaultError(err)
 
   res.status(statusCode).json({
     status: 'error',

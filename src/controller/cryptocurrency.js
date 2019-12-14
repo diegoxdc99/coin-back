@@ -12,9 +12,13 @@ const createUser = async (req, res, next) => {
 }
 
 const findAllByUser = async (req, res, next) => {
-  const cryptocurrencies = await cryptoService.findAllByUser(req.user.id)
-  const response = await cryptoService.getDataCryptocurrency(cryptocurrencies, req.userRegistered.currency)
-  res.send(response)
+  try {
+    const cryptocurrencies = await cryptoService.findAllByUser(req.user.id)
+    const response = await cryptoService.getDataCryptocurrency(cryptocurrencies, req.userRegistered.currency)
+    res.send(response)
+  } catch (error) {
+    next(error)
+  }
 }
 
 const topByUser = async (req, res, next) => {
